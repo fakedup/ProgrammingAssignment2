@@ -1,28 +1,27 @@
-## Put comments here that give an overall description of what your
-## functions do
+## Functions to set and store a matrix and inverse one.
 
-## Write a short comment describing this function
+## This function allows to set and get matrix itself and its inverse.
 
 makeCacheMatrix <- function(x = matrix()) {
-        m <- NULL
-        set <- function(y) {
-                x <<- y
-                m <<- NULL
+        InversedMatrix <- NULL ## Define inverse matrix
+        set <- function(new_matrix) {
+                x <<- new_matrix ##Store new matrix
+                InversedMatrix <<- NULL ##Erase inverse matrix if it was computed before
         }
         get <- function() x
-        setSolve <- function(mean) m <<- mean
-        getSolve <- function() m
+        setSolve <- function(solve) InversedMatrix <<- solve
+        getSolve <- function() InversedMatrix
         list(set = set, get = get,
-             setmean = setmean,
-             getmean = getmean)
+             setSolve = setSolve,
+             getSolve = getSolve)
 }
 
 
-## Write a short comment describing this function
+## Function to compute inverse matrix and to cache it in previous function.
 
 cacheSolve <- function(x, ...) {
         m <- x$getSolve()
-        if(!is.null(m) & m=x$get()) {
+        if(!is.null(m)) {
                 message("getting cached data")
                 return(m)
         }
